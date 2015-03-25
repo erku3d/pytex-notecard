@@ -1,0 +1,60 @@
+\documentclass{article}
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage[toc]{multitoc}
+
+\usepackage[
+    paperheight=7.4cm,
+    paperwidth=10.5cm,
+    left=0.5cm,
+    right=0.5cm,
+    top=0.5cm,
+    bottom=0.5cm,
+    %showframe
+]{geometry}
+
+\renewcommand{\labelitemi}{-}
+\renewcommand*{\multicolumntoc}{2}
+
+\addto\captionsngerman{%
+    \renewcommand{\contentsname}{\small Fragen}%
+}
+
+\begin{document}
+
+    \pagestyle{empty}   
+    \noindent
+    \pagenumbering{gobble}
+    
+    \tiny   
+    \tableofcontents  
+    \normalsize
+    \newpage
+    ~ \newpage
+
+    \section[erste Frage]{}
+   
+    \vfill
+    \begin{center}
+            \LARGE \textbf{
+            This is a Question?\\
+            Is this a second line?\\ 
+        }
+    \end{center}
+    \vfill
+    \mbox{}
+   
+   \newpage
+
+   \begin{itemize}
+       \item point one
+       \item point two
+       \item point three
+   \end{itemize}
+ 
+
+\end{document}
