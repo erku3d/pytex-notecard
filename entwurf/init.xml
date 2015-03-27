@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!-- ##################################### -->
+<!--basic layout -->
+<!---
+<notecards>
+	<card>
+		<question></question>
+		<answer>
+			<item></item>
+			<item></item>
+			<img></img>
+		</answer>
+	</card>
+</notecards>
+-->
+<!-- ##################################### -->
+<notecards>
+</notecards>

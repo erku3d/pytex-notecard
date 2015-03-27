@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!-- ##################################### -->
+<!--basic layout -->
+<!---
+<notecards>
+	<card>
+		<question></question>
+		<answer>
+			<item></item>
+			<item></item>
+			<img></img>
+		</answer>
+	</card>
+</notecards>
+-->
+<!-- ##################################### -->
+<notecards>
+	<card>
+		<question>Wie läuft die binäre Suche ab?</question>
+		<answer>
+			<item>beobachte das gesamte Feld (das Feld muss aufsteigend sortiert sein)</item>
+            <item>Vergl. das Feld in der Mitte mit x</item>
+            <item>ist x größer, so befindet sich das gesuchte nach dem mittlersten -> betrachte das Feld von der Mitte bis zum Ende</item>
+            <item>ist x kleiner, so befindett es sich davor -> betrachte das Feld vom Anfang bis zur Mitte</item>
+            <item>gehe zu 2. bis der gesuchte Wert gefunden ist oder die Feldgröße 0 -> der gesuchte Wert ist nicht enthalten</item>            
+		</answer>
+	</card>
+	<card>
+		<question>Was gilt für formale Sprachen?</question>
+		<answer>
+			<item>Eine Formulierung von Sachverhalten ist mit formalen Sprachen eindeutig.</item>
+			<item>Algorithmen die mit Hilfe von formalen Sprachen formuliert werden, sind eindeutig ausführbar und setzen kein implizites Wissen voraus.</item>		
+		</answer>
+	</card>
+</notecards>
