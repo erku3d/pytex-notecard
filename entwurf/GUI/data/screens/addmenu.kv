@@ -4,10 +4,10 @@ NotecardsScreen:
 	fullscreen: True
 	
 	GridLayout:	
-		rows: 3
+		rows: 4
 		spacing: '20dp'
 				
-		Label:
+        Label:
 			size_hint_y: 0.15
 			markup: True
 			text: '[size=25]Frage hinzufügen[/size]'
@@ -56,22 +56,31 @@ NotecardsScreen:
 
 			#ScrollView oder LsitView oder ähnliches
 		
-			BoxLayout:	
-				orientation: 'vertical'
+#            ScrollView:					
+#               do_scroll_x: False
+#                do_scroll_y: True	
+#				size_hint_x: 0.3
+#	            height: root.height
+
+            GridLayout:
+                id: qList
+			    cols: 1
 				spacing: '5dp'
 				size_hint_x: 0.3
-					
-				canvas.before:
-					Color:
-						rgb: .02, .21, .26
+				#size_hint_y: None
+
+
+                canvas.before:
+                    Color:
+				        rgb: .02, .21, .26
 						
-					Rectangle:
-						size: self.size
-						pos: self.pos
+				    Rectangle:
+				        size: self.size
+					    pos: self.pos
 				
-				Label:
-					size_hint_y: None
-					text: 'Fragen'
+#				 Label:
+#				   size_hint_y: None
+#				   text: 'Fragen'
 		
 		BoxLayout:	
 			size_hint_y: 0.15			
@@ -86,7 +95,26 @@ NotecardsScreen:
 				on_press: app.load_screen('mainmenu','right')
 					
 					
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: 0.05
+            
+			canvas.before:
+				Color:
+					rgb: 0,0,0
+						
+				Rectangle:
+					size: self.size
+					pos: self.pos
+
+
+            Label:
+                id: status
+			    size_hint_x: 0.1
+			    text: 'Status'
 					
+            Label:
+                size_hint_x: 0.9
 					
 					
 					

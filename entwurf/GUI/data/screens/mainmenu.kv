@@ -1,129 +1,129 @@
 NotecardsScreen:
-	name: 'mainmenue'
-	
-	fullscreen: True
+    name: 'mainmenue'
+    
+    fullscreen: True
 
-	GridLayout:	
-		rows: 2
-		spacing: '2dp'
-				
-		Label:
-			size_hint_y: 0.1
-			text: 'Hauptmenü'
-											
-				
-		BoxLayout:
-			size_hint_y: 0.9
-						
-			orientation: 'horizontal'
-			spacing: '10dp'
-				
-			
-			
-			BoxLayout:	
-				orientation: 'vertical'
-				spacing: '5dp'
-				
-				Label:
-					size_hint_y: 0.35
-				
-				Button:
-					size_hint_y: 0.1					
-					text: "Thema hinzufügen"
-					#on_press: app.load_screen('addmenu','left')
-				
-				Button:
-					size_hint_y: 0.1					
-					text: "Thema Löschen"
-					#on_press: app.load_screen('addmenu','left')
-				
-				Button:
-					size_hint_y: 0.1					
-					text: "Thema Bearbeiten"
-					on_press: app.load_screen('addmenu','left')
-				
-				Button:
-					size_hint_y: 0.1					
-					text: "Thema exportieren"
-					on_press: app.load_screen('addmenu','left')
-								
-				Button:
-					size_hint_y: 0.1					
-					text: "Beenden"
-					on_press: app.load_screen('stop','left')
-					
-				Label:
-					size_hint_y: 0.35
+    GridLayout: 
+        rows: 2
+        spacing: '2dp'
+                
+        Label:
+            size_hint_y: 0.1
+            text: 'Hauptmenü'
+                                            
+                
+        BoxLayout:
+            size_hint_y: 0.9
+                        
+            orientation: 'horizontal'
+            spacing: '10dp'
+                
+            
+            
+            BoxLayout:  
+                orientation: 'vertical'
+                spacing: '5dp'
+                
+                Label:
+                    size_hint_y: 0.35
+                
+                Button:
+                    size_hint_y: 0.1                    
+                    text: "Thema hinzufügen"
+                    #on_press: app.load_screen('addmenu','left')
+                
+                Button:
+                    size_hint_y: 0.1                    
+                    text: "Thema Löschen"
+                    #on_press: app.load_screen('addmenu','left')
+                
+                Button:
+                    size_hint_y: 0.1                    
+                    text: "Thema Bearbeiten"
+                    on_press: app.btnEditPressed('left')
+                
+                Button:
+                    size_hint_y: 0.1                    
+                    text: "Thema exportieren"
+                    on_press: app.load_screen('addmenu','left')
+                                
+                Button:
+                    size_hint_y: 0.1                    
+                    text: "Beenden"
+                    on_press: app.load_screen('stop','left')
+                    
+                Label:
+                    size_hint_y: 0.35
 
 #ScrollView oder LsitView oder ähnliches
-		
-			BoxLayout:	
-				orientation: 'vertical'
-				spacing: '5dp'
-								
-				canvas.before:
-					Color:
-						rgb: .02, .21, .26
-						
-					Rectangle:
-						size: self.size
-						pos: self.pos
-				
-				BoxLayout:
-					size_hint_y: 0.1		
-					orientation: 'horizontal'
-					spacing: '10dp'	
-						
-				
-					CheckBox:
-						size_hint_x: 0.1						 
-						height: '48dp'
-						group: 'g2'
-					
-					Label:
-						size_hint_x: 0.9
-						text: 'Thema 1'
-				
-				BoxLayout:
-					size_hint_y: 0.1		
-					orientation: 'horizontal'
-					spacing: '10dp'	
-					
-					canvas.before:
-						Color:
-							rgb: .35, .43, .46
-						
-						Rectangle:
-							size: self.size
-							pos: self.pos	
-				
-					CheckBox:
-						size_hint_x: 0.1						 
-						height: '48dp'
-						group: 'g2'
-					
-					Label:
-						size_hint_x: 0.9
-						text: 'Thema 2'
-				
-				BoxLayout:
-					size_hint_y: 0.1		
-					orientation: 'horizontal'
-					spacing: '10dp'	
-						
-				
-					CheckBox:
-						size_hint_x: 0.1						 
-						height: '48dp'
-						group: 'g2'
-					
-					Label:
-						size_hint_x: 0.9
-						text: 'Thema 3'				
-				
-				Label:
-					size_hint_y: 0.9
-					
-				
-				
+        
+            BoxLayout:  
+                orientation: 'vertical'
+                spacing: '5dp'
+                                
+                canvas.before:
+                    Color:
+                        rgb: .02, .21, .26
+                        
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                
+                BoxLayout:
+                    size_hint_y: 0.1        
+                    orientation: 'horizontal'
+                    spacing: '10dp' 
+                        
+                
+                    CheckBox:
+                        size_hint_x: 0.1                         
+                        height: '48dp'
+                        group: 'g2'
+                    
+                    Label:
+                        size_hint_x: 0.9
+                        text: 'Thema 1'
+                
+                BoxLayout:
+                    size_hint_y: 0.1        
+                    orientation: 'horizontal'
+                    spacing: '10dp' 
+                    
+                    canvas.before:
+                        Color:
+                            rgb: .35, .43, .46
+                        
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos   
+                
+                    CheckBox:
+                        size_hint_x: 0.1                         
+                        height: '48dp'
+                        group: 'g2'
+                    
+                    Label:
+                        size_hint_x: 0.9
+                        text: 'Thema 2'
+                
+                BoxLayout:
+                    size_hint_y: 0.1        
+                    orientation: 'horizontal'
+                    spacing: '10dp' 
+                        
+                
+                    CheckBox:
+                        size_hint_x: 0.1                         
+                        height: '48dp'
+                        group: 'g2'
+                    
+                    Label:
+                        size_hint_x: 0.9
+                        text: 'Thema 3'             
+                
+                Label:
+                    size_hint_y: 0.9
+                    
+                
+                
 
