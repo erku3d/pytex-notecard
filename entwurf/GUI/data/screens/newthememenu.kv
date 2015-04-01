@@ -1,0 +1,97 @@
+NotecardsScreen:
+    name: 'newthememenu'
+    
+    fullscreen: True
+    
+    GridLayout:	
+		rows: 3
+		spacing: '20dp'
+				
+        Label:
+			size_hint_y: 0.15
+			markup: True
+			text: '[size=25]Neues Thema ertellen[/size]'
+											
+				
+		BoxLayout:				
+			orientation: 'horizontal'
+			spacing: '10dp'
+				
+			GridLayout:	
+				rows: 2
+				spacing: '2dp'				
+				size_hint_x: 0.4
+								
+				Label:
+					size_hint_y: 0.15
+					size_hint_x: 0.15
+					text: 'Frage: '
+				
+				TextInput:
+					id: ti_question
+					size_hint_y: 0.15
+					size_hint_x: 0.85
+				
+				Label:
+					#size_hint_y: 0.15
+					#size_hint_x: 0.15
+					text: 'Frage: '
+			
+			GridLayout:	
+				rows: 3
+				spacing: '5dp'
+				
+				Label:
+					size_hint_y: 0.15
+					markup: True
+					text: '[b]Wähle einen Ordner[/b]'
+				
+				Label:
+					id:laCurrentPath
+					size_hint_y: 0.15					
+					text: 'Pfad'
+						
+				
+				FileChooserListView:
+					id: list_view_tab
+				
+			#~ BoxLayout:
+				#~ # Double as a Tabbed Panel Demo!
+				#~ TabbedPanel:
+					#~ tab_pos: "top_right"
+					#~ default_tab_text: "List View"
+					#~ default_tab_content: list_view_tab
+#~ 
+					#~ TabbedPanelHeader:
+						#~ text: 'Icon View'
+						#~ content: icon_view_tab
+#~ 
+					#~ FileChooserListView:
+						#~ id: list_view_tab
+#~ 
+					#~ FileChooserIconView:
+						#~ id: icon_view_tab
+						#~ show_hidden: True
+		
+		GridLayout:	
+			rows: 2
+			spacing: '5dp'
+			size_hint_y: 0.25
+			
+			BoxLayout:	
+				#size_hint_y: 0.15			
+				orientation: 'horizontal'
+				spacing: '5dp'
+				
+				Button:
+					text: 'Speichern'
+					#on_press: app.saveCard()
+				
+				Button:
+					text: 'Löschen'
+					#on_press: app.deleteCard()			
+				
+			Button:
+				#size_hint_y: 0.15
+				text: 'Hauptmenü'
+				on_press: app.load_screen('mainmenu','down')		

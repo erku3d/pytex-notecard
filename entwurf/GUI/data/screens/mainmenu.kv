@@ -4,17 +4,18 @@ NotecardsScreen:
     fullscreen: True
 
     GridLayout: 
-        rows: 2
+        rows: 1
         spacing: '2dp'
+		padding: '20dp'
                 
-        Label:
-            size_hint_y: 0.1
-            text: 'Hauptmenü'
+        #~ Label:
+            #~ size_hint_y: 0.1
+            #~ markup: True
+			#~ text: '[size=25]Hauptmenü[/size]'
                                             
                 
         BoxLayout:
-            size_hint_y: 0.9
-                        
+            size_hint_y: 0.9                        
             orientation: 'horizontal'
             spacing: '10dp'
                 
@@ -23,6 +24,8 @@ NotecardsScreen:
             BoxLayout:  
                 orientation: 'vertical'
                 spacing: '5dp'
+				padding: '20dp'
+				size_hint_x:0.4
                 
                 Label:
                     size_hint_y: 0.35
@@ -30,6 +33,11 @@ NotecardsScreen:
                 Button:
                     size_hint_y: 0.1                    
                     text: "Thema hinzufügen"
+                    on_press: app.btnNewThemePressed('up')
+                
+                Button:
+                    size_hint_y: 0.1                    
+                    text: "Thema lernen"
                     #on_press: app.load_screen('addmenu','left')
                 
                 Button:
@@ -45,21 +53,21 @@ NotecardsScreen:
                 Button:
                     size_hint_y: 0.1                    
                     text: "Thema exportieren"
-                    on_press: app.load_screen('addmenu','left')
+                    #on_press: app.load_screen('addmenu','left')
                                 
                 Button:
                     size_hint_y: 0.1                    
                     text: "Beenden"
-                    on_press: app.load_screen('stop','left')
+                    #on_press: app.load_screen('stop','left')
                     
                 Label:
                     size_hint_y: 0.35
-
-#ScrollView oder LsitView oder ähnliches
         
             BoxLayout:  
                 orientation: 'vertical'
-                spacing: '5dp'
+                spacing: '10dp'
+				padding: '20dp'	
+				size_hint_x:0.6
                                 
                 canvas.before:
                     Color:
@@ -68,62 +76,28 @@ NotecardsScreen:
                     Rectangle:
                         size: self.size
                         pos: self.pos
-                
-                BoxLayout:
-                    size_hint_y: 0.1        
-                    orientation: 'horizontal'
-                    spacing: '10dp' 
-                        
-                
-                    CheckBox:
-                        size_hint_x: 0.1                         
-                        height: '48dp'
-                        group: 'g2'
-                    
-                    Label:
-                        size_hint_x: 0.9
-                        text: 'Thema 1'
-                
-                BoxLayout:
-                    size_hint_y: 0.1        
-                    orientation: 'horizontal'
-                    spacing: '10dp' 
-                    
-                    canvas.before:
-                        Color:
-                            rgb: .35, .43, .46
-                        
-                        Rectangle:
-                            size: self.size
-                            pos: self.pos   
-                
-                    CheckBox:
-                        size_hint_x: 0.1                         
-                        height: '48dp'
-                        group: 'g2'
-                    
-                    Label:
-                        size_hint_x: 0.9
-                        text: 'Thema 2'
-                
-                BoxLayout:
-                    size_hint_y: 0.1        
-                    orientation: 'horizontal'
-                    spacing: '10dp' 
-                        
-                
-                    CheckBox:
-                        size_hint_x: 0.1                         
-                        height: '48dp'
-                        group: 'g2'
-                    
-                    Label:
-                        size_hint_x: 0.9
-                        text: 'Thema 3'             
-                
                 Label:
-                    size_hint_y: 0.9
-                    
+					size_hint_y: 0.1
+					markup: True
+					text: '[size=20]Themen[/size]' 
+                
+                #~ Button:					
+					#~ text: 'Neues Thema'					
+					#~ size_hint_y: None
+					#~ height: '48dp'
+					#~ #on_press: app.newCard()
+                
+                ScrollView:										
+					do_scroll_y: True	
+					size_hint_y: 2            
+						
+					GridLayout:
+						id: tList
+						cols: 1
+						spacing: '1dp'					
+						size_hint_y: None
+						
+						
                 
                 
 

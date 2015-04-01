@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<notecards>
+  <card>
+    <question>Wie ?</question>
+    <answer>
+      <item>beobachte das gesamte Feld (das Feld muss aufsteigend sortiert sein)</item>
+    </answer>
+  </card>
+  <card>
+    <question>Was gilt für formale Sprachen?</question>
+    <answer>
+      <item>Eine Formulierung von Sachverhalten ist mit formalen Sprachen eindeutig.</item>
+      <item>Algorithmen die mit Hilfe von formalen Sprachen formuliert werden, sind eindeutig ausführbar und setzen kein implizites Wissen voraus.</item>
+    </answer>
+  </card>
+</notecards>

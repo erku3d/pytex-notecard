@@ -5,8 +5,7 @@ kivy.require('1.8.0')
 
 #from time import time
 from kivy.app import App
-from os.path import dirname, join, isfile
-from os import listdir
+from os.path import dirname, join
 from kivy.lang import Builder
 from kivy.properties import NumericProperty, StringProperty, BooleanProperty,ListProperty
 #from kivy.clock import Clock
@@ -59,18 +58,17 @@ class pytex_notecardApp(App):
                 #add screens here
                 self.available_screens['mainmenu'] =  join(self.curdir, 'data', 'screens', '{}.kv'.format('mainmenu'))
                 self.available_screens['editmenu'] =  join(self.curdir, 'data', 'screens', '{}.kv'.format('editmenu'))
-                self.available_screens['newthememenu'] =  join(self.curdir, 'data', 'screens', '{}.kv'.format('newthememenu'))
-                
 
-                #location oft the cards
-                self.themesDirectories = []
-                self.themesDirectories.append(join(self.curdir, 'data', 'cards'))
-                #todo user can add more directories
-                
+            #load the notecards
+           # self.notecards = Notecards( join(curdir, 'data', 'cards', '{}.xml'.format('test')))
                                
                #load main menue
                 self.load_screen('mainmenu','left')
                 self.updateThemeList()
+
+                #screen = self.screens['addmenu']
+                #status=screen.ids.status
+                #status.text='geht'
 
         def load_screen(self,key,direction):
 
@@ -120,65 +118,48 @@ class pytex_notecardApp(App):
             
             tList.clear_widgets()
             
-            #generate the filenames and paths from the directories
-                       
-            files= []
-                       
-            for path in self.themesDirectories:         #for all paths
-                       
-                for f in listdir(path):                 #get all files and directories
-                    if isfile(join(join(path,f))):      #use only files
-                        if f.endswith('.xml'):          #that ends with '.xml'
-                            name = f.split('.xml')         #split the '.xml'
-                            
-                            files.append([name[0],join(join(path,f))])      
+            #load themes
             
-            #generate ToggleButtons
-            for t in files:                                                              
-                btn = ToggleButton(text=t[0],id='tbtn_'+t[1] ,group='theme', state = 'normal',size_hint_y=None, height='40dp')
+            #set the right id for the new btn
+            self.currentScreen.ids.tbtn_0.id='tbtn_0'
+            self.currentScreen.ids.tbtn_0.state = 'down'
+            
+            print(os.listdir(join(self.curdir, 'data', 'cards')))
+            
+            #callback for the btn
+            
+            #for q in questions:
+            for t in range(25):
+                
+                #~ if len(q.text) > 30:
+                    #~ txt = q.text[0:30]+' ...'
+                #~ else:
+                    #~ txt = q.text                
+                
+                #btn = ToggleButton(id='tbtn_'+q.id, text=txt, group='questions', state = 'normal',size_hint_y=None, height='40dp')                
+                btn = ToggleButton(text=str(t), group='theme', state = 'normal',size_hint_y=None, height='40dp')
+                                
+                #btn.bind(on_press=callback)                
+                
                 tList.add_widget(btn)
             
             
         
         def btnEditPressed(self,direction):
-            """if edite btn is pressed, check which theme is selected and switch to the edit screen"""
-            
-            btns = ToggleButtonBehavior.get_widgets('theme')
-            
-            btn_pressed = False
-            
-            #get the button which is pressed
-            for btn in btns:
-                if(btn.state == 'down'):
-                    btn_pressed = True
-                    break
-            
-            if(not btn_pressed):
-                self.showPopup("Fehler","Wähle eine Thema aus")
-                return
-            
-            #get the id of the btn -> path of the .xml file
-            
-            tmp=btn.id.split('tbtn_')            
-            path=tmp[len(tmp)-1]
-            
-            self.editCards(path,direction)
-        
-        def btnNewThemePressed(self,direction):
-            """create a new Theme with a .xml"""
-            self.load_screen('newthememenu',direction)
+            """if edite btn is pressed, check which theme is selected and switch to the edit scree"""
+            #todo read checkboxes
+
+            self.editCards('test',direction)
 
 
-        def editCards(self,path,direction):
+        def editCards(self,name,direction):
             """edit the cards of the theme"""
 
             self.load_screen('editmenu',direction)
 
             #load the notecards
             #todo catch FileNotFound Exception
-                       
-            self.notecards = Notecards(path)
-            
+            self.notecards = Notecards( join(self.curdir, 'data', 'cards', '{}.xml'.format(name)))
             
             self.updateQuestionList()
             

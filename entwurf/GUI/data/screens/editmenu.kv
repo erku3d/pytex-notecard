@@ -1,0 +1,143 @@
+NotecardsScreen:
+	name: 'editmenu'
+	
+	fullscreen: True
+	
+	GridLayout:	
+		rows: 3
+		spacing: '20dp'
+				
+        Label:
+			size_hint_y: 0.15
+			markup: True
+			text: '[size=25]Frage hinzufügen[/size]'
+											
+				
+		BoxLayout:				
+			orientation: 'horizontal'
+			spacing: '10dp'
+			
+			GridLayout:	
+				rows: 2
+				spacing: '2dp'				
+				size_hint_x: 0.7
+								
+				Label:
+					size_hint_y: 0.15
+					size_hint_x: 0.15
+					text: 'Frage: '
+				
+				TextInput:
+					id: ti_question
+					size_hint_y: 0.15
+					size_hint_x: 0.85													
+					
+					
+				
+				BoxLayout:
+					orientation: 'vertical'
+					size_hint_y: 0.85
+					size_hint_x: 0.15
+									
+					
+					Label:
+						size_hint_y: 0.1
+						text: 'Antwort:'
+					
+					Label:						
+						size_hint_y: 0.9
+						text: ' '
+						 
+				TextInput:
+					id: ti_answer
+					size_hint_y: 0.85
+					size_hint_x: 0.85					
+					
+
+			#ScrollView oder LsitView oder ähnliches
+			
+			BoxLayout:				
+				orientation: 'vertical'
+				spacing: '10dp'
+				size_hint_x: 0.3
+					
+				ToggleButton:
+					id: tbtn_0
+					text: 'Neu'
+					group: 'questions'
+					state: 'down'
+					size_hint_y: None
+					height: '48dp'
+					on_press: app.newCard()
+					
+					
+				ScrollView:										
+					do_scroll_y: True	
+					size_hint_y: 2            
+						
+					GridLayout:
+						id: qList
+						cols: 1
+						spacing: '1dp'					
+						size_hint_y: None
+
+						#~ canvas.before:
+							#~ Color:
+								#~ rgb: .02, .21, .26
+								#~ rgb: 1,0,0
+								#~ 
+							#~ Rectangle:
+								#~ size: self.size
+								#~ pos: self.pos
+						
+						#~ Label:
+							#~ size_hint_y: None
+							#~ text: 'Fragen'					
+					
+					
+		
+		GridLayout:	
+			rows: 2
+			spacing: '5dp'
+			size_hint_y: 0.25
+			
+			BoxLayout:	
+				#size_hint_y: 0.15			
+				orientation: 'horizontal'
+				spacing: '5dp'
+				
+				Button:
+					text: 'Speichern'
+					on_press: app.saveCard()
+				
+				Button:
+					text: 'Löschen'
+					on_press: app.deleteCard()			
+				
+			Button:
+				#size_hint_y: 0.15
+				text: 'Hauptmenü'
+				on_press: app.load_screen('mainmenu','right')
+					
+					
+        #~ BoxLayout:
+            #~ orientation: 'horizontal'
+            #~ size_hint_y: 0.05
+            #~ 
+			#~ canvas.before:
+				#~ Color:
+					#~ rgb: 0,0,0
+						#~ 
+				#~ Rectangle:
+					#~ size: self.size
+					#~ pos: self.pos
+#~ 
+#~ 
+            #~ Label:
+                #~ id: status
+			    #~ size_hint_x: 0.1
+			    #~ text: 'Status'
+					#~ 
+            #~ Label:
+                #~ size_hint_x: 0.9
+
