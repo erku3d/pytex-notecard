@@ -3,9 +3,11 @@
 import kivy
 kivy.require('1.8.0')
 
+
+
 #from time import time
 from kivy.app import App
-from os.path import dirname, join, isfile
+from os.path import dirname, join, isfile, realpath, abspath,normpath, expanduser, lexists
 from os import listdir
 from kivy.lang import Builder
 from kivy.properties import NumericProperty, StringProperty, BooleanProperty,ListProperty
@@ -18,7 +20,9 @@ from kivy.uix.behaviors import ToggleButtonBehavior
 from kivy.uix.popup import Popup
 from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.checkbox import CheckBox
 
+import os.path
 
 #path to the sourcefiles
 import sys
@@ -54,8 +58,10 @@ class pytex_notecardApp(App):
                 #mapping of screen names (key) with the location of the *.kv file
                 self.available_screens = {}
 
-                self.curdir = dirname(__file__)
-
+                #self.curdir = dirname(__file__)
+                self.curdir = dirname(realpath(__file__))
+                
+                                
                 #add screens here
                 self.available_screens['mainmenu'] =  join(self.curdir, 'data', 'screens', '{}.kv'.format('mainmenu'))
                 self.available_screens['editmenu'] =  join(self.curdir, 'data', 'screens', '{}.kv'.format('editmenu'))
@@ -66,11 +72,13 @@ class pytex_notecardApp(App):
                 self.themesDirectories = []
                 self.themesDirectories.append(join(self.curdir, 'data', 'cards'))
                 #todo user can add more directories
-                
+                               
                                
                #load main menue
                 self.load_screen('mainmenu','left')
                 self.updateThemeList()
+                                
+                
 
         def load_screen(self,key,direction):
 
@@ -87,7 +95,7 @@ class pytex_notecardApp(App):
                         screen = self.screens[key]
                 else:
                         if key in self.available_screens:
-                                screen = Builder.load_file(self.available_screens[key].lower())
+                                screen = Builder.load_file(self.available_screens[key])
                                 self.screens[key] = screen
                         else:
                                 print("Error! ",key," is not a Screen!")
@@ -134,7 +142,7 @@ class pytex_notecardApp(App):
                             files.append([name[0],join(join(path,f))])      
             
             #generate ToggleButtons
-            for t in files:                                                              
+            for t in files:                                                                       
                 btn = ToggleButton(text=t[0],id='tbtn_'+t[1] ,group='theme', state = 'normal',size_hint_y=None, height='40dp')
                 tList.add_widget(btn)
             
@@ -167,7 +175,82 @@ class pytex_notecardApp(App):
         def btnNewThemePressed(self,direction):
             """create a new Theme with a .xml"""
             self.load_screen('newthememenu',direction)
+            
+            fileChooser=self.currentScreen.ids.fileChooser
+            
+            #fileChooser.path = dirname(realpath(__file__))
+            fileChooser.path = dirname(expanduser('~'))
+            
+            self.updateFolderList()
+            
+        
+        def updateFolderList(self):
+            
+            fl = self.currentScreen.ids.folderList
+                        
+            fl.bind(minimum_height=fl.setter('height'))
+            
+            fl.clear_widgets()
+            
+            fileChooser=self.currentScreen.ids.fileChooser
+            
+            def callback(instance,state):
+                if(state):
+                    if(instance.id == 'cb_new'):
+                        return
+                                       
+                    path = instance.id.split('cb_')[1]
+                    
+                    if(lexists(path)):
+                        fileChooser.path=path
+                
+            
+            bl = BoxLayout(orientation='horizontal', size_hint_y=None, height='40dp') 
+            cb = CheckBox(active = True, id = 'cb_new', group ='folder', size_hint_x=0.1)
+            cb.bind(active=callback)
+            la = Label(text='Neu')
+            
+            bl.add_widget(cb)
+            bl.add_widget(la)
+            
+            
+            fl.add_widget(bl)
+            
+            for d in self.themesDirectories:
 
+                bl = BoxLayout(orientation='horizontal', size_hint_y=None, height='40dp') 
+                cb = CheckBox(active = False, id = 'cb_'+d, group ='folder', size_hint_x=0.1)
+                cb.bind(active=callback)               
+                la = Label(text=self.shortenPath(d))
+                
+                bl.add_widget(cb)
+                bl.add_widget(la)
+                
+                
+                fl.add_widget(bl)
+            
+            
+        def shortenPath(self,path):
+            
+            if(len(path) < 30):
+                return path
+            
+            head = os.path.split(path)[0]
+            tail = os.path.split(path)[1]
+            
+            p = tail
+                     
+            while(len(p)<30):
+                               
+                head = os.path.split(head)[0]
+                tail = os.path.split(head)[1]
+                
+                p = join(tail, p)
+                
+                print (p)
+            
+            return '... /'+p
+        
 
         def editCards(self,path,direction):
             """edit the cards of the theme"""

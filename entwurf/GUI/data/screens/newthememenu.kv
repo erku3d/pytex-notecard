@@ -4,7 +4,7 @@ NotecardsScreen:
     fullscreen: True
     
     GridLayout:	
-		rows: 3
+		rows: 4
 		spacing: '20dp'
 				
         Label:
@@ -15,64 +15,87 @@ NotecardsScreen:
 				
 		BoxLayout:				
 			orientation: 'horizontal'
-			spacing: '10dp'
+			spacing: '5dp'
+			size_hint_y: 0.1
+			
+			Label:				
+				size_hint_x: 0.15
+				text: 'Name: '
+			
+			TextInput:
+				size_hint_x: 0.7
+				id: ti_themeName
+			
+			Label:				
+				size_hint_x: 0.15				
+									
+			
+		GridLayout:	
+			rows: 3
+			spacing: '5dp'
+			
+			Label:
+				size_hint_y: 0.15
+				markup: True
+				text: '[b]Wähle einen Ordner, wo deine Karten gespeichert werden sollen.[/b]'
+			
+			BoxLayout:								
+				orientation: 'horizontal'
+				spacing: '5dp'
+				size_hint_y: 0.1
 				
-			GridLayout:	
-				rows: 2
-				spacing: '2dp'				
-				size_hint_x: 0.4
+				canvas.before:
+					Color:
+						rgb: .02, .21, .26
+						
+					Rectangle:
+						size: self.size
+						pos: self.pos
 								
 				Label:
-					size_hint_y: 0.15
-					size_hint_x: 0.15
-					text: 'Frage: '
-				
-				TextInput:
-					id: ti_question
-					size_hint_y: 0.15
-					size_hint_x: 0.85
+					size_hint_x: 0.1																
+					text: 'Pfad: '
 				
 				Label:
-					#size_hint_y: 0.15
-					#size_hint_x: 0.15
-					text: 'Frage: '
-			
-			GridLayout:	
-				rows: 3
+					size_hint_x: 1	
+					id:laCurrentPath											
+					text: fileChooser.path
+					
+			BoxLayout:								
+				orientation: 'horizontal'
 				spacing: '5dp'
+								
+				FileChooserIconView:
+					id: fileChooser
+					size_hint_x: 0.4 
+					
+					canvas.before:
+						Color:
+							rgb: .02, .21, .26
+							
+						Rectangle:
+							size: self.size
+							pos: self.pos
 				
-				Label:
-					size_hint_y: 0.15
-					markup: True
-					text: '[b]Wähle einen Ordner[/b]'
-				
-				Label:
-					id:laCurrentPath
-					size_hint_y: 0.15					
-					text: 'Pfad'
+				ScrollView:										
+					do_scroll_y: True	
+					size_hint_x: 0.6 
+					
+					canvas.before:
+						Color:
+							rgb: .02, .21, .26
+							
+						Rectangle:
+							size: self.size
+							pos: self.pos           
 						
+					GridLayout:
+						id: folderList
+						cols: 1
+						spacing: '1dp'					
+						size_hint_y: None
 				
-				FileChooserListView:
-					id: list_view_tab
-				
-			#~ BoxLayout:
-				#~ # Double as a Tabbed Panel Demo!
-				#~ TabbedPanel:
-					#~ tab_pos: "top_right"
-					#~ default_tab_text: "List View"
-					#~ default_tab_content: list_view_tab
-#~ 
-					#~ TabbedPanelHeader:
-						#~ text: 'Icon View'
-						#~ content: icon_view_tab
-#~ 
-					#~ FileChooserListView:
-						#~ id: list_view_tab
-#~ 
-					#~ FileChooserIconView:
-						#~ id: icon_view_tab
-						#~ show_hidden: True
-		
+
 		GridLayout:	
 			rows: 2
 			spacing: '5dp'
