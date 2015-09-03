@@ -32,27 +32,27 @@ NotecardsScreen:
                 
                 Button:
                     size_hint_y: 0.1                    
-                    text: "Thema hinzufügen"
-                    on_press: app.btnNewThemePressed('up')
+                    text: "Kategorie hinzufügen"
+                    on_press: app.btnNewCategoryPressed('up')
                 
                 Button:
                     size_hint_y: 0.1                    
-                    text: "Thema lernen"
+                    text: "Kategorie lernen"
                     #on_press: app.load_screen('addmenu','left')
                 
                 Button:
                     size_hint_y: 0.1                    
-                    text: "Thema Löschen"
-                    #on_press: app.load_screen('addmenu','left')
+                    text: "Kategorie Löschen"
+                    on_press: app.btnDeleteCategoryPressed()
                 
                 Button:
                     size_hint_y: 0.1                    
-                    text: "Thema Bearbeiten"
+                    text: "Kategorie Bearbeiten"
                     on_press: app.btnEditPressed('left')
                 
                 Button:
                     size_hint_y: 0.1                    
-                    text: "Thema exportieren"
+                    text: "Kategorie exportieren"
                     #on_press: app.load_screen('addmenu','left')
                                 
                 Button:
@@ -79,7 +79,7 @@ NotecardsScreen:
                 Label:
 					size_hint_y: 0.1
 					markup: True
-					text: '[size=20]Themen[/size]' 
+					text: '[size=20]Kategorie[/size]' 
                 
                 #~ Button:					
 					#~ text: 'Neues Thema'					

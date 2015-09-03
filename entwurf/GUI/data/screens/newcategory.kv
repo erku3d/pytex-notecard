@@ -1,0 +1,131 @@
+NotecardsScreen:
+    name: 'newcategory'
+    
+    fullscreen: True
+    
+    GridLayout:	
+		rows: 3
+		spacing: '20dp'
+		
+		BoxLayout:				
+			orientation: 'vertical'
+			spacing: '5dp'
+			size_hint_y: 0.33
+					
+			Label:
+				#size_hint_y: None
+				markup: True
+				text: '[size=25]Neue Kategorie ertellen[/size]'
+											
+		BoxLayout:				
+			orientation: 'vertical'
+			spacing: '5dp'
+			size_hint_y: 0.33
+				
+			BoxLayout:				
+				orientation: 'horizontal'
+				spacing: '5dp'
+				size_hint_y: 0.2
+				
+				Label:				
+					size_hint_x: 0.15
+					text: 'Name: '
+				
+				TextInput:
+					size_hint_x: 0.7
+					id: ti_name
+				
+				Label:				
+					size_hint_x: 0.15				
+			
+			Label:
+				size_hint_y: 0.8
+				
+		#~ GridLayout:	
+			#~ rows: 3
+			#~ spacing: '5dp'
+			#~ 
+			#~ Label:
+				#~ size_hint_y: 0.15
+				#~ markup: True
+				#~ text: '[b]Wähle einen Ordner, wo deine Karten gespeichert werden sollen.[/b]'
+			#~ 
+			#~ BoxLayout:								
+				#~ orientation: 'horizontal'
+				#~ spacing: '5dp'
+				#~ size_hint_y: 0.1
+				#~ 
+				#~ canvas.before:
+					#~ Color:
+						#~ rgb: .02, .21, .26
+						#~ 
+					#~ Rectangle:
+						#~ size: self.size
+						#~ pos: self.pos
+								#~ 
+				#~ Label:
+					#~ size_hint_x: 0.1																
+					#~ text: 'Pfad: '
+				#~ 
+				#~ Label:
+					#~ size_hint_x: 1	
+					#~ id:laCurrentPath											
+					#~ text: fileChooser.path
+					#~ 
+			#~ BoxLayout:								
+				#~ orientation: 'horizontal'
+				#~ spacing: '5dp'
+								#~ 
+				#~ FileChooserIconView:
+					#~ id: fileChooser
+					#~ size_hint_x: 0.4 
+					#~ 
+					#~ canvas.before:
+						#~ Color:
+							#~ rgb: .02, .21, .26
+							#~ 
+						#~ Rectangle:
+							#~ size: self.size
+							#~ pos: self.pos
+				#~ 
+				#~ ScrollView:										
+					#~ do_scroll_y: True	
+					#~ size_hint_x: 0.6 
+					#~ 
+					#~ canvas.before:
+						#~ Color:
+							#~ rgb: .02, .21, .26
+							#~ 
+						#~ Rectangle:
+							#~ size: self.size
+							#~ pos: self.pos           
+						#~ 
+					#~ GridLayout:
+						#~ id: folderList
+						#~ cols: 1
+						#~ spacing: '1dp'					
+						#~ size_hint_y: None
+				#~ 
+
+		BoxLayout:	
+			orientation: 'vertical'
+			spacing: '5dp'
+			size_hint_y: 0.33
+			
+			Label:
+				size_hint_y: 0.5
+			
+			BoxLayout:	
+				size_hint_y: 0.5			
+				orientation: 'horizontal'
+				spacing: '5dp'
+				
+				Button:
+					text: 'Speichern'
+					on_press: app.saveNewCategory()
+				
+				Button:
+					text: 'Abbrechen'
+					on_press: app.load_screen('mainmenu','down')			
+				
+			

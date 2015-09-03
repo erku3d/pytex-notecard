@@ -8,7 +8,7 @@ kivy.require('1.8.0')
 #from time import time
 from kivy.app import App
 from os.path import dirname, join, isfile, realpath, abspath,normpath, expanduser, lexists
-from os import listdir
+from os import listdir, remove
 from kivy.lang import Builder
 from kivy.properties import NumericProperty, StringProperty, BooleanProperty,ListProperty
 #from kivy.clock import Clock
@@ -65,7 +65,7 @@ class pytex_notecardApp(App):
                 #add screens here
                 self.available_screens['mainmenu'] =  join(self.curdir, 'data', 'screens', '{}.kv'.format('mainmenu'))
                 self.available_screens['editmenu'] =  join(self.curdir, 'data', 'screens', '{}.kv'.format('editmenu'))
-                self.available_screens['newthememenu'] =  join(self.curdir, 'data', 'screens', '{}.kv'.format('newthememenu'))
+                self.available_screens['newcategory'] =  join(self.curdir, 'data', 'screens', '{}.kv'.format('newcategory'))
                 
 
                 #location oft the cards
@@ -75,8 +75,9 @@ class pytex_notecardApp(App):
                                
                                
                #load main menue
-                self.load_screen('mainmenu','left')
+                self.load_screen('mainmenu','left')                
                 self.updateThemeList()
+                
                                 
                 
 
@@ -146,11 +147,8 @@ class pytex_notecardApp(App):
                 btn = ToggleButton(text=t[0],id='tbtn_'+t[1] ,group='theme', state = 'normal',size_hint_y=None, height='40dp')
                 tList.add_widget(btn)
             
-            
-        
-        def btnEditPressed(self,direction):
-            """if edite btn is pressed, check which theme is selected and switch to the edit screen"""
-            
+        def getPathFromToggleButton(self):
+            """extracts the path from the id of the selected ToogleButton and returns it"""
             btns = ToggleButtonBehavior.get_widgets('theme')
             
             btn_pressed = False
@@ -162,27 +160,44 @@ class pytex_notecardApp(App):
                     break
             
             if(not btn_pressed):
-                self.showPopup("Fehler","Wähle eine Thema aus")
-                return
+                self.showPopup("Fehler","Wähle eine Kategorie aus")
+                return None
             
             #get the id of the btn -> path of the .xml file
+                     
             
             tmp=btn.id.split('tbtn_')            
-            path=tmp[len(tmp)-1]
+            
+            return tmp[len(tmp)-1]
+            
+            
+        
+        def btnEditPressed(self,direction):
+            """if edite btn is pressed, check which theme is selected and switch to the edit screen"""
+            
+            path = self.getPathFromToggleButton()
             
             self.editCards(path,direction)
         
-        def btnNewThemePressed(self,direction):
+        def btnNewCategoryPressed(self,direction):
             """create a new Theme with a .xml"""
-            self.load_screen('newthememenu',direction)
+            self.load_screen('newcategory',direction)
             
-            fileChooser=self.currentScreen.ids.fileChooser
+            self.currentScreen.ids.ti_name.text=''
             
-            #fileChooser.path = dirname(realpath(__file__))
-            fileChooser.path = dirname(expanduser('~'))
+            #~ fileChooser=self.currentScreen.ids.fileChooser
+            #~ 
+            #~ #fileChooser.path = dirname(realpath(__file__))
+            #~ fileChooser.path = dirname(expanduser('~'))
+            #~ 
+            #~ self.updateFolderList()
+            #~ 
+        
+        def btnDeleteCategoryPressed(self):            
+            path = self.getPathFromToggleButton()
             
-            self.updateFolderList()
-            
+            if( path != None):
+                self.deleteCategory(path)
         
         def updateFolderList(self):
             
@@ -221,7 +236,7 @@ class pytex_notecardApp(App):
                 bl = BoxLayout(orientation='horizontal', size_hint_y=None, height='40dp') 
                 cb = CheckBox(active = False, id = 'cb_'+d, group ='folder', size_hint_x=0.1)
                 cb.bind(active=callback)               
-                la = Label(text=self.shortenPath(d))
+                la = Label(text=self.shortenPath(d,30))
                 
                 bl.add_widget(cb)
                 bl.add_widget(la)
@@ -230,9 +245,9 @@ class pytex_notecardApp(App):
                 fl.add_widget(bl)
             
             
-        def shortenPath(self,path):
-            
-            if(len(path) < 30):
+        def shortenPath(self,path, length):
+            """shortens the given path"""
+            if(len(path) < length):
                 return path
             
             head = os.path.split(path)[0]
@@ -240,17 +255,36 @@ class pytex_notecardApp(App):
             
             p = tail
                      
-            while(len(p)<30):
+            while(len(p)<length):
                                
                 head = os.path.split(head)[0]
                 tail = os.path.split(head)[1]
                 
                 p = join(tail, p)
                 
-                print (p)
+                #print (p)
             
             return '... /'+p
         
+        
+        def saveNewCategory(self):
+            name = self.currentScreen.ids.ti_name.text
+            
+            if(len(name)<1):
+                self.showPopup("Fehler","Bitte gib einen Namen ein!")
+                return
+            
+            
+            path = self.themesDirectories[0]
+            
+            #todo check if file exsists already
+            
+            Notecards.createEmptyXML(None,join(path,name+'.xml'))
+            
+            #load main menue
+            self.load_screen('mainmenu','down')
+            self.updateThemeList()         
+            
 
         def editCards(self,path,direction):
             """edit the cards of the theme"""
@@ -426,6 +460,61 @@ class pytex_notecardApp(App):
             
             self.updateQuestionList()
         
+        
+        def deleteCategory(self, path):
+            """Deletes the .xml file of the selected Category"""
+                      
+            filename = os.path.split(path)[1].split('.xml')[0]
+                               
+            
+            content = BoxLayout(orientation='vertical')              
+            popup = Popup(title='Kategorie Löschen',content=content, auto_dismiss=False, size_hint=(.7,.7) )
+            
+            delCat = 0
+            
+            def callback(instance):
+                
+                #print(path)
+                
+                #TODO   Exceptions
+                os.remove(path)
+            
+                self.updateThemeList()
+                
+                popup.dismiss()
+            
+            
+            q = 'Soll die Kategorie \n'+filename+'\nwirklich glöscht werden?'
+            content.add_widget(Label(text=q, font_size='20sp', size_hint_y=None, markup=True))
+            content.add_widget(Label())
+            
+            btnBox = BoxLayout(orientation='horizontal', size_hint_y = None)              
+            
+            btn_abr = Button(text='Abbrechen')
+            # bind the on_press event of the button to the dismiss function
+            btn_abr.bind(on_press=popup.dismiss)
+            
+            btn_lo = Button(text='Löschen')
+            btn_lo.bind(on_press=callback)
+            
+            
+            btnBox.add_widget(btn_abr)
+            btnBox.add_widget(btn_lo)
+                        
+            content.add_widget(btnBox)
+            
+
+            
+
+            # open the popup
+            popup.open()
+            
+            
+            
+            
+        
+        
+        
         def showPopup(self,title ,txt):
             """shows a Popup witha given titel and text"""
             
@@ -444,11 +533,12 @@ class pytex_notecardApp(App):
 
             # open the popup
             popup.open()
+        
+    
             
 
 if __name__ == '__main__':
         pytex_notecardApp().run()
-        #addCard.addCard().run()
 
 
 

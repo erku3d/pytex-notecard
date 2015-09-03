@@ -69,6 +69,7 @@ class Notecards(object):
     """parses the given xml file to create a data structure"""
 
     def __init__(self, file_name):
+			
         #todo Exceptions
         self._file = file_name
         self._tree = ET.parse(self._file)
@@ -176,10 +177,21 @@ class Notecards(object):
                 
         file.write( prettify(root))
         file.close()
-        
-                       
+                              
             
         #print(prettify(root))   
+        
+    def createEmptyXML(self,filename):
+        """creates an empty xml file for a new card deck"""
+        
+        root = Element('notecards')
+                        
+        #todo Exceptions
+                
+        file = open(filename,'w')
+                
+        file.write( prettify(root))
+        file.close()
         
                 
             
